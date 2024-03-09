@@ -1,0 +1,14 @@
+<h2>Olympic games app</h2>
+<hr />
+<div *ngFor="let olympic of olympicList">
+    <div><b>{{olympic.country}}</b></div>
+    <div *ngFor="let participation of olympic.participations">
+        <ul>
+            <li>Year: {{participation.year}}</li>
+            <li>City: {{participation.city}}</li>
+            <li>Medals nbr: {{participation.medalsCount}}</li>
+            <li>Athlete count: {{participation.athleteCount}}</li>
+        </ul>
+    </div>
+</div>
+<!-- <p>{{ olympicList.length }} data loaded</p> -->
