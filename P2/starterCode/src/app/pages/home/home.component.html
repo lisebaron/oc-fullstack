@@ -1,6 +1,18 @@
-<h2>Olympic games app</h2>
-<hr />
-<div *ngFor="let olympic of olympicList">
+<app-general-title [titleText]="'Medals per Country'"></app-general-title>
+
+<ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="results"
+  [animations]="false"
+  [legend]="false"
+  [legendPosition]="legendPosition"
+  [labels]="showLabels"
+  (select)="onSelect($event)"
+  >
+</ngx-charts-pie-chart>
+
+<!-- <div *ngFor="let olympic of olympicList">
     <div><b>{{olympic.country}}</b></div>
     <div *ngFor="let participation of olympic.participations">
         <ul>
@@ -10,5 +22,5 @@
             <li>Athlete count: {{participation.athleteCount}}</li>
         </ul>
     </div>
-</div>
+</div> -->
 <!-- <p>{{ olympicList.length }} data loaded</p> -->

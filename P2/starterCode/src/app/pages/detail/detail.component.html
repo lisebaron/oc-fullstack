@@ -1,3 +1,25 @@
-<div>
-    Detail page
+<div *ngIf="currentOlympic" class="detail-container">
+    <app-general-title [titleText]="currentOlympic.country"></app-general-title>
+
+    <!-- <div><b>{{currentOlympic.country}}</b></div> -->
+    <!-- <div *ngFor="let participation of currentOlympic.participations">
+        <ul>
+            <li>Year: {{participation.year}}</li>
+            <li>City: {{participation.city}}</li>
+            <li>Medals nbr: {{participation.medalsCount}}</li>
+            <li>Athlete count: {{participation.athleteCount}}</li>
+        </ul>
+    </div> -->
+    <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="results"
+        [animations]="false"
+        [legend]="true"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [xAxis]="true"
+        [yAxis]="true"
+        >
+    </ngx-charts-line-chart>
 </div>
