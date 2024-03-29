@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
   
   onSelect(data: {label: string, name: string, value: number}): void {
     let foundOlympic = this.olympicList.find(o => o.country === data.name) as Olympic;
-    
     this.router.navigate(["/detail", foundOlympic.id]);
   }
 }

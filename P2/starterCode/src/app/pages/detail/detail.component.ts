@@ -11,7 +11,6 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
-  id!: number;
   currentOlympic!: Olympic;
   // TODO: add "Number of entries", "Total number medals" and "Total number of athletes" subtitles
   
@@ -26,7 +25,6 @@ export class DetailComponent implements OnInit {
     group: ScaleType.Linear,
     domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"]
   };
-  // colorScheme = "vivid";
   
   constructor(private route: ActivatedRoute,
     private olympicService: OlympicService,
@@ -34,35 +32,36 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params["id"];
-      this.getOlympic();
+      this.getOlympic(params["id"]);
     });
   }
 
-  getOlympic() {
-    this.olympicService.getOlympicById(this.id).subscribe((olympic) => {
+  getOlympic(id: number) {
+    this.olympicService.getOlympicById(id).subscribe((olympic) => {
       if (olympic !== undefined) {
         this.currentOlympic = olympic;
-        this.buildDatas(); // TODO passer olympic et enlever this.currentOlympic
+        this.buildDatas(olympic);
       } else {
-        console.log(olympic);
+        this.navigateTo("not-found");
       }
     });
-    
   }
 
-  buildDatas() {
+  buildDatas(olympic: Olympic) {
     this.results = [{
-      "name": this.currentOlympic.country,
+      "name": olympic.country,
       "series":
-        this.currentOlympic.participations.map((participation: Participation) => {
+        olympic.participations.map((participation: Participation) => {
           return {
             "name": participation.year.toString(),
             "value": participation.medalsCount
           }
         })
     }];
+
   }
 
-  //TODO Add return button to home
+  navigateTo(path: String) {
+    this.router.navigate([path]);
+  }
 }

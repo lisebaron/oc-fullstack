@@ -1,5 +1,4 @@
 <app-general-title [titleText]="'Medals per Country'"></app-general-title>
-
 <ngx-charts-pie-chart
   [view]="view"
   [scheme]="colorScheme"
@@ -11,16 +10,3 @@
   (select)="onSelect($event)"
   >
 </ngx-charts-pie-chart>
-
-<!-- <div *ngFor="let olympic of olympicList">
-    <div><b>{{olympic.country}}</b></div>
-    <div *ngFor="let participation of olympic.participations">
-        <ul>
-            <li>Year: {{participation.year}}</li>
-            <li>City: {{participation.city}}</li>
-            <li>Medals nbr: {{participation.medalsCount}}</li>
-            <li>Athlete count: {{participation.athleteCount}}</li>
-        </ul>
-    </div>
-</div> -->
-<!-- <p>{{ olympicList.length }} data loaded</p> -->

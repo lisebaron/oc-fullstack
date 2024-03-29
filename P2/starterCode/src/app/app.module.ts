@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ToastrModule } from 'ngx-toastr';
 import { GeneralTitleComponent } from './components/general-title/general-title.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { GeneralTitleComponent } from './components/general-title/general-title.
     AppRoutingModule,
     HttpClientModule,
     NgxChartsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

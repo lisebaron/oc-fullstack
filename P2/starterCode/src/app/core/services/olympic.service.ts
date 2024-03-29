@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import Olympic from '../models/Olympic';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +12,20 @@ export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private _olympics: BehaviorSubject<Olympic[]> = new BehaviorSubject<Olympic[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private toastr: ToastrService) { }
 
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      tap((value) => this._olympics.next(value)),
-      catchError((error, caught) => {
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        this._olympics.next([]);
-        return caught;
+      tap((value) => {
+        this._olympics.next(value)}),
+      catchError((error) => {
+        console.error("Error while loading Data: ", error);
+        this.toastr.error("Error while loading Data", "Error", {
+          timeOut: 5000,
+          positionClass: "toast-bottom-right"
+        });
+        return of([]);
       })
     );
   }
@@ -30,22 +34,17 @@ export class OlympicService {
     return this._olympics.asObservable();
   }
 
-  getOlympicById(id: number): Observable<Olympic | undefined> {
-    console.log(id);
-    console.log(this._olympics.getValue());
-    
-    // if (id <= 0 || !isNaN(id) || id > this._olympics.getValue().length) {
-    //   console.log("Hello");
-    //   // this.router.navigate(["/not-found"]);
-    // }
-    let obs = this._olympics.asObservable();
-
-    return obs.pipe(
-      map(olympics => olympics.find(o => o.id == id)),
-      catchError((error, caught) => {
-        console.error("Error while finding olympic by Id : ", error);
-        return caught;
+  getOlympicById(id: number) {
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
+      map((olympics: Olympic[]) => olympics.find(o => o.id == id)),
+      catchError((error) => {
+        console.error("Error while finding olympic by Id: ", error);
+        this.toastr.error("Error while finding olympic by Id", "Error", {
+          timeOut: 5000,
+          positionClass: "toast-bottom-right"
+        });
+        return of(undefined);
       })
-    );
+    )
   }
 }
