@@ -14,10 +14,12 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public olympics$ = new Observable<Olympic[]>;
   public olympicList : Olympic[] = [];
-  // TODO: add "number of JOs" and "number of countries" subtitles
+
+  joNbr: number = 0;
+  countriesNbr: number = 0;
 
   // chart options
-  view : [number, number] = [700, 400];
+  view: [number, number] = [700, 400];
   showLabels: boolean = true;
   legendPosition = LegendPosition.Below;
   results: any;
@@ -25,7 +27,7 @@ export class HomeComponent implements OnInit {
     name: "scheme",
     selectable: true,
     group: ScaleType.Linear,
-    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"]
+    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"] //TODO ngStyle
   };
 
   constructor(private olympicService: OlympicService,
@@ -40,22 +42,32 @@ export class HomeComponent implements OnInit {
     this.olympics$.subscribe((olympics: Olympic[]) => {
       if (olympics) {
         this.olympicList = olympics;
-        this.buildDatas(olympics);
+        this.buildDatas();
       }
     })
   }
 
-  buildDatas(olympics: Olympic[]) {
-    this.results = olympics.map(olympic => {
+  buildDatas() {
+    this.results = this.olympicList.map(olympic => {
+      let listJO: number[] = [];
       let totalMedalNbr = 0;
+
       olympic.participations.forEach((participation: Participation) => {
         totalMedalNbr += participation.medalsCount;
+        if (!listJO.includes(participation.year)) {
+          listJO.push(participation.year);
+        }
       });
+
+      this.joNbr = listJO.length;
+
       return {
         "name": olympic.country,
         "value": totalMedalNbr
       }
     });
+
+    this.countriesNbr = this.olympicList.length;
   }
   
   onSelect(data: {label: string, name: string, value: number}): void {

@@ -1,4 +1,18 @@
-* {
+.home-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.all-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.subtitle-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
 }

@@ -12,7 +12,9 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class DetailComponent implements OnInit {
   currentOlympic!: Olympic;
-  // TODO: add "Number of entries", "Total number medals" and "Total number of athletes" subtitles
+  entriesNbr: number = 0;
+  totalMedalNbr: number = 0;
+  totalAthletesNbr: number = 0;
   
   // chart options
   view : [number, number] = [700, 400];
@@ -23,7 +25,7 @@ export class DetailComponent implements OnInit {
     name: "scheme",
     selectable: true,
     group: ScaleType.Linear,
-    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"]
+    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"] //TODO ngStyle
   };
   
   constructor(private route: ActivatedRoute,
@@ -59,6 +61,11 @@ export class DetailComponent implements OnInit {
         })
     }];
 
+    this.entriesNbr = olympic.participations.length;
+    olympic.participations.map((participation: Participation) => {
+      this.totalMedalNbr += participation.medalsCount;
+      this.totalAthletesNbr += participation.athleteCount;
+    });
   }
 
   navigateTo(path: String) {

@@ -1,6 +1,13 @@
 <button (click)="navigateTo('')">Go back</button>
 <div *ngIf="currentOlympic" class="detail-container">
-    <app-general-title [titleText]="currentOlympic.country"></app-general-title>
+    <div class="all-title-container">
+        <app-general-title [titleText]="currentOlympic.country"></app-general-title>
+        <div class="subtitle-container">
+            <app-general-subtitle [subtitleText]="'Number of entries'" [nbr]="entriesNbr"></app-general-subtitle>
+            <app-general-subtitle [subtitleText]="'Total number medals'" [nbr]="totalMedalNbr"></app-general-subtitle>
+            <app-general-subtitle [subtitleText]="'Total number of athletes'" [nbr]="totalAthletesNbr"></app-general-subtitle>
+        </div>
+    </div>
     <ngx-charts-line-chart
         [view]="view"
         [scheme]="colorScheme"

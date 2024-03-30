@@ -10,9 +10,10 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ToastrModule } from 'ngx-toastr';
 import { GeneralTitleComponent } from './components/general-title/general-title.component';
+import { GeneralSubtitleComponent } from './components/general-subtitle/general-subtitle.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, DetailComponent, GeneralTitleComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, DetailComponent, GeneralTitleComponent, GeneralSubtitleComponent],
   imports: [BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
