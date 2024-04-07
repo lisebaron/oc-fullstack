@@ -4,6 +4,8 @@ import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
 import Olympic from 'src/app/core/models/Olympic';
 import Participation from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
+import LineResultData from 'src/app/core/models/LineResultData';
+import SingleResultData from 'src/app/core/models/SingleResultData';
 
 @Component({
   selector: 'app-detail',
@@ -16,16 +18,16 @@ export class DetailComponent implements OnInit {
   totalMedalNbr: number = 0;
   totalAthletesNbr: number = 0;
   
-  // chart options
+  //chart options
   view : [number, number] = [700, 400];
   legendTitle = "Dates";
   legendPosition = LegendPosition.Below;
-  results: any;
+  results: LineResultData[] = [];
   colorScheme = {
     name: "scheme",
     selectable: true,
     group: ScaleType.Linear,
-    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"] //TODO ngStyle
+    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"]
   };
   
   constructor(private route: ActivatedRoute,
@@ -57,7 +59,7 @@ export class DetailComponent implements OnInit {
           return {
             "name": participation.year.toString(),
             "value": participation.medalsCount
-          }
+          } as SingleResultData;
         })
     }];
 

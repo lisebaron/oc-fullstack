@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Olympic from "src/app/core/models/Olympic";
-import Participation from "src/app/core/models/Participation";
 import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';
+import SingleResultData from 'src/app/core/models/SingleResultData';
 
 @Component({
   selector: 'app-home',
@@ -22,12 +22,12 @@ export class HomeComponent implements OnInit {
   view: [number, number] = [700, 400];
   showLabels: boolean = true;
   legendPosition = LegendPosition.Below;
-  results: any;
+  results: SingleResultData[] = [];
   colorScheme = {
     name: "scheme",
     selectable: true,
     group: ScaleType.Linear,
-    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"] //TODO ngStyle
+    domain: ["#793D52", "#89A1DB", "#9780A1", "#BFE0F1", "#B8CBE7", "#956065"]
   };
 
   constructor(private olympicService: OlympicService,
@@ -52,8 +52,9 @@ export class HomeComponent implements OnInit {
       let listJO: number[] = [];
       let totalMedalNbr = 0;
 
-      olympic.participations.forEach((participation: Participation) => {
+      olympic.participations.forEach(participation => {
         totalMedalNbr += participation.medalsCount;
+
         if (!listJO.includes(participation.year)) {
           listJO.push(participation.year);
         }
@@ -64,7 +65,7 @@ export class HomeComponent implements OnInit {
       return {
         "name": olympic.country,
         "value": totalMedalNbr
-      }
+      } as SingleResultData;
     });
 
     this.countriesNbr = this.olympicList.length;

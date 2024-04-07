@@ -1,10 +1,8 @@
-<div class="home-container">
-  <div class="all-title-container">
-    <app-general-title [titleText]="'Medals per Country'"></app-general-title>
-    <div class="subtitle-container">
-      <app-general-subtitle [subtitleText]="'Number of JOs'" [nbr]="joNbr"></app-general-subtitle>
-      <app-general-subtitle [subtitleText]="'Number of countries'" [nbr]="countriesNbr"></app-general-subtitle>
-    </div>
+<div class="container">
+  <app-general-title [titleText]="'Medals per Country'"></app-general-title>
+  <div class="subtitle-container">
+    <app-general-subtitle [subtitleText]="'Number of JOs'" [nbr]="joNbr"></app-general-subtitle>
+    <app-general-subtitle [subtitleText]="'Number of countries'" [nbr]="countriesNbr"></app-general-subtitle>
   </div>
   
   <ngx-charts-pie-chart
